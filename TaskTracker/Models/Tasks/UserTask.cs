@@ -14,5 +14,7 @@ namespace TaskTracker.Models.Tasks
         public DateTime CreatedTime { get; set; }
 
         public DateTime? CompletedTime { get; set; }
+
+        public override string ToString() => $"[{Id}] {Name} ({CreatedTime:s})";
     }
 }

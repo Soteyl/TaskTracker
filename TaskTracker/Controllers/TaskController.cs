@@ -13,9 +13,9 @@ namespace TaskTracker.Controllers
     [Route("[controller]")]
     public class TasksController
     {
-        private readonly ITaskContext _taskContext;
+        private readonly ITaskRepository _taskContext;
 
-        public TasksController(ITaskContext context)
+        public TasksController(ITaskRepository context)
         {
             _taskContext = context;
         }
@@ -31,7 +31,7 @@ namespace TaskTracker.Controllers
         [HttpGet("{model.Id}")]
         public async Task<ActionResult<UserTask>> GetTask(GetTaskModel model)
         {
-            return await _taskContext.GetTaskById(model.Id!);
+            return await _taskContext.GetById(model.Id!);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace TaskTracker.Controllers
         [HttpGet("")]
         public async Task<ActionResult<UserTasks>> GetTasksPage([FromQuery] GetTasksPageModel model)
         {
-            return await _taskContext.GetTasksPage(model.PageNumber, model.PageSize);
+            return await _taskContext.GetPage(model.PageNumber, model.PageSize);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace TaskTracker.Controllers
         [HttpPost("")]
         public async Task<ActionResult<UserTask>> CreateTask([FromBody] CreateTaskModel model)
         {
-            return await _taskContext.CreateTask(model.Name!);
+            return await _taskContext.Create(model.Name!);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace TaskTracker.Controllers
         [HttpPut("")]
         public async Task UpdateTask([FromBody] UpdateTaskModel model)
         {
-            await _taskContext.UpdateTask(model);
+            await _taskContext.Update(model);
         }
         
         /// <summary>
@@ -85,7 +85,7 @@ namespace TaskTracker.Controllers
         [HttpPost("{model.Id}/complete")]
         public async Task SetTaskAsCompleted(SetTaskCompletedModel model)
         {
-            await _taskContext.SetTaskAsCompleted(model.Id!);
+            await _taskContext.SetAsCompleted(model.Id!);
         }
     }
 }

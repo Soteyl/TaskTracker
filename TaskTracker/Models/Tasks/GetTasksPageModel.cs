@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace TaskTracker.Models.Tasks
 {
@@ -9,5 +10,7 @@ namespace TaskTracker.Models.Tasks
 
         [Range(1, Int32.MaxValue)]
         public int PageSize { get; set; } = 10;
+
+        public override string ToString() => $"[#{PageNumber}] Size: {PageSize}";
     }
 }

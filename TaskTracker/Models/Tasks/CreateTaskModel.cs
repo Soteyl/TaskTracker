@@ -7,5 +7,7 @@ namespace TaskTracker.Models.Tasks
         [Required]
         [StringLength(255, MinimumLength =1)]
         public string? Name { get; set; }
+
+        public override string ToString() => Name ?? string.Empty;
     }
 }

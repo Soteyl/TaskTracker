@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Extensions.Configuration;
 using TaskTracker.Services;
 using TaskTracker.Services.Interfaces;
 
@@ -7,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-builder.Services.AddTransient<ITaskContext, MongoDbTaskContext>();
+builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection("MongoDb"));
+builder.Services.AddTransient<ITaskRepository, MongoDbTaskRepository>();
 
 var app = builder.Build();
 
